@@ -1,0 +1,66 @@
+﻿@model DanhgiaCDR.Models.tblNganh
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>tblNganh</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="DV_ID" class="control-label"></label>
+                <input asp-for="DV_ID" class="form-control" />
+                <span asp-validation-for="DV_ID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NGANH_Ten" class="control-label"></label>
+                <input asp-for="NGANH_Ten" class="form-control" />
+                <span asp-validation-for="NGANH_Ten" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NGANH_TenE" class="control-label"></label>
+                <input asp-for="NGANH_TenE" class="form-control" />
+                <span asp-validation-for="NGANH_TenE" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NGANH_Cap" class="control-label"></label>
+                <input asp-for="NGANH_Cap" class="form-control" />
+                <span asp-validation-for="NGANH_Cap" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NGANH_ID_Cha" class="control-label"></label>
+                <input asp-for="NGANH_ID_Cha" class="form-control" />
+                <span asp-validation-for="NGANH_ID_Cha" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NGANH_ThoiGianToiThieu" class="control-label"></label>
+                <input asp-for="NGANH_ThoiGianToiThieu" class="form-control" />
+                <span asp-validation-for="NGANH_ThoiGianToiThieu" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NGANH_ThoiGianToiDa" class="control-label"></label>
+                <input asp-for="NGANH_ThoiGianToiDa" class="form-control" />
+                <span asp-validation-for="NGANH_ThoiGianToiDa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsActive" class="control-label"></label>
+                <input asp-for="IsActive" class="form-control" />
+                <span asp-validation-for="IsActive" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

@@ -1,0 +1,167 @@
+﻿@using DanhgiaCDR.Models;
+@model IList<tblMH>
+
+
+<main id="main" class="main">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Tìm kiếm học phầnnnnnnn</h5>
+
+                    <!-- General Form Elements -->
+                    <form id="searchForm">
+                        <!-- Hàng 1 -->
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="col-form-label">Đơn vị:</label>
+                                <select class="form-select" id="trangthaimon" name="trangthaimon" aria-label="Default select example">
+                                    <option value="0">Viện KT&CN</option>
+                                    <option value="1">Trường kinh tế</option>
+                                    <option value="2">...</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="col-form-label">Ngành:</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="truong" name="truong" placeholder="Nhập ngành" list="truongList" required>
+                                    <datalist id="truongList">
+                                        <option value="Khoa Công nghệ thông tin"></option>
+                                        <option value="Kinh tế"></option>
+                                        <!-- Thêm các option khác tương ứng với ngành  -->
+                                    </datalist>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label class="col-form-label">CTDT:</label>
+                                <input type="text" class="form-control" id="ctdt" name="ctdt" placeholder="Nhập mã CTDT">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-form-label">Khóa:</label>
+                                <input type="text" class="form-control" id="khoa" name="khoa" placeholder="Nhập khóa">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-form-label">Tên học phần:</label>
+                                <input type="text" class="form-control" id="tenhocphan" name="tenhocphan" placeholder="Nhập tên học phần" required>
+                            </div>
+
+                        </div>
+
+                        <!-- Nút Tìm Kiếm -->
+                        <!-- Nút Tìm Kiếm -->
+                        <div class="row mb-3">
+                            <div class="col-md-12 text-center">
+                                <div class="btn btn-primary" id="locHP">Tìm Kiếm</div>
+                            </div>
+                        </div>
+
+
+                    </form><!-- End General Form Elements -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Danh sách học phần</h5>
+                        <!-- Bảng -->
+                        <table id="example" class="table table-striped table-bordered" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>MH_ID</th>
+                                    <th>CTDT</th>
+                                    <!--  <th>CDR môn học</th>-->
+                                    <th>Tên HP</th>
+                                    <!--<th>Tên HP</th>-->
+                                    <th>Số TC</th>
+                                    <th>Đánh giá</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.MH_ID</td>
+                                        <td>CDIO</td>
+
+                                        <!--<td>Học Phần A</td>-->
+                                        <!-- <td>@item.MH_Ten </td>-->
+                                        <td>@item.MH_Ten</td>
+                                        <td>@item.MH_SoTinChi</td>
+                                        <td><a href="@Url.Action("Index", "Danhsach")">Danh sách sinh viên</a></td>
+                                        @*<td><a href="tables-general.html">Đạt</a></td>*@
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Đoạn JavaScript để kích hoạt DataTables -->
+    <script>
+        $(document).ready(function () {
+            var entriesPerPage = $('#entriesPerPage').val();
+            var table = $('#example').DataTable({
+                "paging": true,
+                "pageLength": entriesPerPage,
+                "language": {
+                    "url": "https://cdn.datatables.net/plug-ins/1.10.25/i18n/Vietnamese.json"
+                }
+            });
+
+            $('#entriesPerPage').change(function () {
+                var newEntriesPerPage = $(this).val();
+                table.page.len(newEntriesPerPage).draw();
+            });
+
+            $('#locHP').click(function () {
+                var tenhocphan = $('#tenhocphan').val();
+
+                $.ajax({
+                    url: '/Danhgia/Index',
+                    method: 'GET',
+                    data: { tenhocphan: tenhocphan },
+                    success: function (data) {
+                        // Xóa bảng hiện tại trước khi thêm hàng mới
+                        table.clear();
+
+                        // Kiểm tra nếu dữ liệu không rỗng
+                        if (data.length > 0) {
+                            // Thêm các hàng vào bảng
+                            table.rows.add(data);
+                        } else {
+                            // Xử lý trường hợp không có dữ liệu
+                            console.log("Không tìm thấy dữ liệu.");
+
+                            // Thêm thông báo lỗi vào DOM
+                            $('#example tbody').html('<tr><td colspan="5" class="text-center text-danger">Không tìm thấy học phần</td></tr>');
+                        }
+
+                        // Vẽ lại bảng
+                        table.draw();
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            });
+        });
+
+
+
+    </script>
+
+
+    <!-- End Table with stripped rows -->
+</main>

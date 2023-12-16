@@ -1,0 +1,492 @@
+﻿@using DanhgiaCDR.Models;
+@model IList<tblSV>
+@{
+    ViewData["Title"] = "Danh sách sinh viên";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<section class="section">
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div class="card">
+                <div class="card-body" style="padding: 50px ;">
+                    <div class="row m-b-30" style="align-items: center; margin-bottom: 30px !important;">
+                        <div class="col-md-8">
+                            <div class="row" style="display: flex; align-items: center;">
+
+
+                                <div class="col-md-6 mb-3 header" style="box-shadow: none !important; display: flex; justify-content: center; align-items: center; z-index: 0 !important;">
+
+
+                                    <div class="search-bar" style="padding: 0 8px !important;">
+                                        <form class="search-form d-flex align-items-center" method="POST" action="#">
+                                            <input type="text" id="keyword" name="keyword" placeholder="Tìm kiếm" title="Enter search keyword">
+                                            <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+
+
+                                    <select class="form-select" aria-label="Default select example">
+                                        <option disabled selected>Chọn sinh viên</option>
+                                        <option value="All">Chọn tất cả</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-4" style="text-align: right !important;">
+
+
+                            <button type="button" class="btn btn-primary rounded-pill" data-bs-toggle="modal" id="btnAdd" data-bs-target="#largeModal"><i class="bi bi-plus"></i> Thêm mới</button>
+
+                            @*THÊM MỚI SV *@
+                            <div class="modal fade" id="largeModal" tabindex="-1">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header" style="background: #0d6efd;">
+                                            <h5 class="modal-title"><strong style="color: #ffff;" id="modal-title"></strong></h5>
+                                            <button type="button" style="color: #ffff;" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body" style="text-align: left;">
+                                            <div class="col-lg-12">
+
+
+                                                <!-- Vertical Form -->
+                                                <form class="row g-3">
+                                                    <input hidden id="idSinhvien" type="text" value="" />
+                                                    <div class="col-6">
+                                                        <label for="inputNanme4" class="form-label"><strong>Tên sinh viên</strong></label>
+                                                        <input type="text" class="form-control" id="tensv">
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <label for="inputEmail4" class="form-label"><strong>ID Ngành</strong></label>
+                                                        <select class="form-select" id="selectnganh" aria-label="Default select example">
+                                                        </select>
+                                                    </div>
+                                                    <!--<div class="col-6">
+                                                        <label for="inputNanme4" class="form-label"><strong>Ngành</strong></label>
+                                                        <input type="text" class="form-control" id="selectnganh">
+                                                    </div>-->
+                                                    <div class="col-6">
+                                                        <label for="inputEmail4" class="form-label"><strong>ID CTDT</strong></label>
+                                                        <select class="form-select" id="selectctdt" aria-label="Default select example">
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col-6">
+                                                        <label for="inputEmail4" class="form-label"><strong>ID Lớp học phần</strong></label>
+                                                        <select class="form-select" id="selectlhp" aria-label="Default select example">
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <label for="inputEmail4" class="form-label"><strong>ID Môn học</strong></label>
+                                                        <select class="form-select" id="selectmonhoc" aria-label="Default select example">
+                                                        </select>
+                                                    </div>
+                                                    <!--
+                                                    
+                                                    -->
+
+
+                                                </form><!-- Vertical Form -->
+
+
+
+
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                            <button type="button" class="btn btn-primary" id="btnAddSinhvien">Lưu lại</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- End Large Modal-->
+
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover e-commerce-table" style="margin-bottom: 50px !important;">
+                            <thead>
+                                <tr>
+                                    <th style="padding: 1rem !important;">ID</th>
+                                    <th style="padding: 1rem !important;">Tên sinh viên</th>
+                                    <th style="padding: 1rem !important;">ID Ngành</th>
+                                    <th style="padding: 1rem !important;">ID CTDT</th>
+
+                                    <th style="padding: 1rem !important;">ID Lớp học phần</th>
+                                    <th style="padding: 1rem !important;">ID Môn học</th>
+                                    <th style="padding: 1rem !important;">Chức năng</th>
+
+
+
+                                </tr>
+                            </thead>
+
+                            @*// Danh sách menu*@
+                            <tbody id="dsSinhvien" style="vertical-align:-webkit-baseline-middle !important;">
+
+                                @*Hàm LoadDsMenu() sẽ hiển thị ở đây*@                                                                                                                          
+
+                            </tbody>
+                        </table>
+                        
+                      
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</section>
+
+
+
+@section Scripts {
+
+    <script>
+        $(document).ready(function () {
+            LoadDsSinhvien();
+            LoadDsNganh();
+            LoadDsCtdt();
+            LoadDsMh();
+            LoadDsLhp()
+        });
+
+         // XÓA 
+        $(document).on('click', "a[name='delete']", function () {
+            let sV_ID = $(this).closest('tr').attr('id');
+
+            if (confirm("Bạn có thực sự muốn xóa trường này không?")) {
+                // dùng ajax để xóa lớp được chọn
+                $.ajax({
+                    url: '/Admin/AdminSV/Delete',
+                    type: 'POST',
+                    data: {
+                        id: sV_ID,
+
+                    },
+                    success: function (data) {
+                        if (data.code == 200) {
+                            alert(data.msg);
+                            LoadDsSinhvien();
+                        } else {
+                            alert(data.msg);
+                        }
+                    }
+                })
+            }
+        });
+        // CHỈNH SỬA
+        $(document).on('click', "a[name='edit']", function () {
+            // gán title cho modal
+            $('#modal-title').text('Chỉnh sửa');
+            let sV_ID = $(this).closest('tr').attr('id');
+
+            $.ajax({
+                url: '/Admin/AdminSV/Details',
+                type: 'GET',
+                data: {
+                    id: sV_ID
+                },
+                success: function (data) {
+                    console.log(data);
+                    if (data.code == 200) {
+                        // Nếu lấy thông tin thành công
+
+                        $('#tensv').val(data.sv.sV_Ten);
+                        $('#selectnganh').val(data.sv.nganH_ID);
+                        $('#selectctdt').val(data.sv.ctdT_ID);
+                        $('#selectlhp').val(data.sv.lhP_ID);
+                        $('#selectmonhoc').val(data.sv.mH_ID);
+
+                        //  cho chỉnh sửa dữ liệu
+                        $('#tensv').prop('disabled', false);
+                        $('#selectnganh').prop('disabled', false);
+                        $('#selectctdt').prop('disabled', false);
+                        $('#selectlhp').prop('disabled', false);
+                        $('#selectmonhoc').prop('disabled', false);
+
+                        // Ẩn nút "Thêm mới"
+                        $('#btnAddSinhvien').show();
+
+                        // Gán giá trị cho text hidden có giá trị là idFilm = filmID
+                        $('#idSinhvien').val(sV_ID);
+                    } else {
+                        alert(data.msg);
+                    }
+                }
+            })
+        });
+        
+        // XEM CHI TIẾT 
+        $(document).on('click', "a[name='xem']", function () {
+            // gán title cho modal
+            $('#modal-title').text('Thông tin chi tiết');
+            let sV_ID = $(this).closest('tr').attr('id');
+
+            $.ajax({
+                url: '/Admin/AdminSV/Details',
+                type: 'GET',
+                data: {
+                    id: sV_ID
+                },
+                success: function (data) {
+                    console.log(data);
+                    if (data.code == 200) {
+                        // Nếu lấy thông tin thành công
+
+                        $('#tensv').val(data.sv.sV_Ten);
+                        $('#selectnganh').val(data.sv.nganH_ID);
+                        $('#selectctdt').val(data.sv.ctdT_ID);
+                        $('#selectlhp').val(data.sv.lhP_ID);
+                        $('#selectmonhoc').val(data.sv.mH_ID);
+
+                        // Không cho chỉnh sửa dữ liệu
+                        $('#tensv').prop('disabled', true);
+                        $('#selectnganh').prop('disabled', true);
+                        $('#selectctdt').prop('disabled', true);
+                        $('#selectlhp').prop('disabled', true);
+                        $('#selectmonhoc').prop('disabled', true);
+
+                        // Ẩn nút "Thêm mới"
+                        $('#btnAddSinhvien').hide();
+
+                        // Gán giá trị cho text hidden có giá trị là idFilm = filmID
+                        $('#idSinhvien').val(sV_ID);
+                    } else {
+                        alert(data.msg);
+                    }
+                }
+            });
+        });
+
+
+
+        $('#btnAddSinhvien').click(function () {
+            let sV_Ten = $('#tensv').val().trim();
+            let nganH_ID = $('#selectnganh').val().trim();
+            let ctdT_ID = $('#selectctdt').val().trim();
+            let lhP_ID = $('#selectlhp').val().trim();
+            let mH_ID = $('#selectmonhoc').val().trim();
+            let sV_ID = $('#idSinhvien').val().trim();
+
+            // Kiểm tra xem giá trị có tồn tại không
+            if (!sV_Ten || sV_Ten.trim().length === 0 ||
+                !nganH_ID || nganH_ID.trim().length === 0 ||
+                !ctdT_ID || ctdT_ID.trim().length === 0 ||
+                !lhP_ID || lhP_ID.trim().length === 0 ||
+                !mH_ID || mH_ID.trim().length === 0) {
+                alert('Vui lòng nhập đầy đủ thông tin!');
+                return;
+            }
+
+            if (sV_ID.length == 0) {
+                // Thêm mới sinh viên
+                $.ajax({
+                    url: '/Admin/AdminSV/Create',
+                    type: 'post',
+                    data: {
+                        SV_Ten: sV_Ten,
+                        NGANH_ID: nganH_ID,
+                        CTDT_ID: ctdT_ID,
+                        LHP_ID: lhP_ID,
+                        MH_ID: mH_ID,
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        if (data.code == 200) {
+                            alert(data.msg);
+                            LoadDsSinhvien();
+                            clearFormFields();
+                        } else {
+                            alert(data.msg);
+                        }
+                    }
+                });
+            } else {
+                // Cập nhật sinh viên
+                $.ajax({
+                    url: '/Admin/AdminSV/Edit',
+                    type: 'post',
+                    data: {
+                        id: sV_ID,
+                        SV_Ten: sV_Ten,
+                        NGANH_ID: nganH_ID,
+                        CTDT_ID: ctdT_ID,
+                        LHP_ID: lhP_ID,
+                        MH_ID: mH_ID,
+                    },
+                    success: function (data) {
+                        //console.log(data);
+                        if (data.code == 200) {
+                            //thành công
+                            alert(data.msg);
+
+                            $('#largeModal').modal('hide');
+                            LoadDsSinhvien();
+                            
+                        } else {
+                            alert(data.msg);
+                        }
+                    }
+                });
+            }
+        });
+
+        $('#btnAdd').click(function () {
+            // gán title cho modal
+            $('#modal-title').text('Thêm mới sinh viên');
+
+            // Hiển thị nút "Thêm mới"
+            $('#btnAddSinhvien').show();
+
+            // Cho phép chỉnh sửa dữ liệu
+            $('#tensv').prop('disabled', false);
+            $('#selectnganh').prop('disabled', false);
+            $('#selectctdt').prop('disabled', false);
+            $('#selectlhp').prop('disabled', false);
+            $('#selectmonhoc').prop('disabled', false);
+
+            // Đặt giá trị rỗng cho các trường input và select
+            $('#tensv').val('');
+            $('#selectnganh').val('');
+            $('#selectctdt').val('');
+            $('#selectlhp').val('');
+            $('#selectmonhoc').val('');
+        });
+
+
+        function LoadDsSinhvien() {
+            $.ajax({
+                url: '/Admin/AdminSV/DsSinhvien',
+                type: 'GET',
+                success: function (data) {
+                            console.log(data);
+                    
+                    if (data.code == 200) {
+                        $('#dsSinhvien').empty();//làm trống
+                        $.each(data.dsSinhvien, function (key, value) {
+                            let tr = '<tr id="' + value.sV_ID + '">';
+                            tr += '<td style="padding: 1rem !important; vertical-align:-webkit-baseline-middle !important;">' + value.sV_ID + '</td>';
+                            tr += '<td style="padding: 1rem !important; vertical-align:-webkit-baseline-middle !important;">' + value.sV_Ten + '</td>';
+                            tr += '<td style="padding: 1rem !important; vertical-align:-webkit-baseline-middle !important;">' + value.nganH_ID + '</td>';
+                            tr += '<td style="padding: 1rem !important; vertical-align:-webkit-baseline-middle !important;">' + value.ctdT_ID + '</td>';
+                            tr += '<td style="padding: 1rem !important; vertical-align:-webkit-baseline-middle !important;">' + value.lhP_ID+ '</td>';
+                                
+                            tr += '<td style="padding: 1rem !important; vertical-align:-webkit-baseline-middle !important;">' + value.mH_ID + '</td>';
+
+                            tr += '<td style="min-width: 150px !important;">';
+                            tr += '<a class="btn btn-primary btn-sm" name="xem" data-bs-toggle="modal" data-bs-target="#largeModal" title ="xem"><i class="ri-eye-line" > </i></a >';
+                            tr += '<a class="btn btn-success btn-sm" name="edit" data-bs-toggle="modal" data-bs-target="#largeModal" title ="sửa" style="margin: 0 5px !important;"><i class="ri-edit-2-line"></i></a >';
+                            tr += '<a class="btn btn-danger btn-sm" name="delete" title = "xóa"><i class="bi bi-trash"></i></a >';
+
+                            tr += '</td>';
+                            tr += '</tr>';
+
+                            $('#dsSinhvien').append(tr);
+                        });
+
+                    }
+                }
+            });
+        }
+        // Lấy danh sách danh mục dùng cho thẻ select có id là selectCategory
+        function LoadDsNganh() {
+            $.ajax({
+                url: '/Admin/AdminNganh/AllNganh',  // Đã sửa URL
+                type: 'GET',
+                success: function (data) {
+                    $('#selectnganh').empty(); // Xóa tất cả các tùy chọn
+                    if (data.code == 200) {
+                        // Thêm tùy chọn mặc định
+                        let optDefault = '<option value="0" selected>Chọn danh mục</option>';
+                        $('#selectnganh').append(optDefault);
+
+                        // Thêm tùy chọn dựa trên dữ liệu
+                        $.each(data.allNganh, function (k, v) {
+                            let opt = '<option value="' + v.nganH_ID + '">' + v.nganH_Ten + '</option>';
+                            $('#selectnganh').append(opt);
+                        });
+                    } else {
+                        alert(data.msg);
+                    }
+                }
+            });
+        }
+        function LoadDsCtdt() {
+            $.ajax({
+                url: '/Admin/AdminCTDT/AllCTDT',  // Đã sửa URL
+                type: 'GET',
+                success: function (data) {
+                    $('#selectctdt').empty(); // Xóa tất cả các tùy chọn
+                    if (data.code == 200) {
+                        // Thêm tùy chọn mặc định
+                        let optDefault = '<option value="0" selected>Chọn danh mục</option>';
+                        $('#selectctdt').append(optDefault);
+
+                        // Thêm tùy chọn dựa trên dữ liệu
+                        $.each(data.allCTDT, function (k, v) {
+                            let opt = '<option value="' + v.ctdT_ID + '">' + v.ctdT_Ten + '</option>';
+                            $('#selectctdt').append(opt);
+                        });
+                    } else {
+                        alert(data.msg);
+                    }
+                }
+            });
+        }
+        function LoadDsMh() {
+            $.ajax({
+                url: '/Admin/AdminMH/AllMH',  // Đã sửa URL
+                type: 'GET',
+                success: function (data) {
+                    $('#selectmonhoc').empty(); // Xóa tất cả các tùy chọn
+                    if (data.code == 200) {
+                        // Thêm tùy chọn mặc định
+                        let optDefault = '<option value="0" selected>Chọn danh mục</option>';
+                        $('#selectmonhoc').append(optDefault);
+
+                        // Thêm tùy chọn dựa trên dữ liệu
+                        $.each(data.allMH, function (k, v) {
+                            let opt = '<option value="' + v.mH_ID + '">' + v.mH_Ten + '</option>';
+                            $('#selectmonhoc').append(opt);
+                        });
+                    } else {
+                        alert(data.msg);
+                    }
+                }
+            });
+        }
+        function LoadDsLhp() {
+            $.ajax({
+                url: '/Admin/AdminLHP/AllLHP',  // Đã sửa URL
+                type: 'GET',
+                success: function (data) {
+                    $('#selectlhp').empty(); // Xóa tất cả các tùy chọn
+                    if (data.code == 200) {
+                        // Thêm tùy chọn mặc định
+                        let optDefault = '<option value="0" selected>Chọn danh mục</option>';
+                        $('#selectlhp').append(optDefault);
+
+                        // Thêm tùy chọn dựa trên dữ liệu
+                        $.each(data.allLHP, function (k, v) {
+                            let opt = '<option value="' + v.lhP_ID + '">' + v.lhP_Ten + '</option>';
+                            $('#selectlhp').append(opt);
+                        });
+                    } else {
+                        alert(data.msg);
+                    }
+                }
+            });
+        }
+    </script>
+}

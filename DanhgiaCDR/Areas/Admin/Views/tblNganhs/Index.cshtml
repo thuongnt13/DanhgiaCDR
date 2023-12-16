@@ -1,0 +1,78 @@
+﻿@model IEnumerable<DanhgiaCDR.Models.tblNganh>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DV_ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NGANH_Ten)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NGANH_TenE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NGANH_Cap)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NGANH_ID_Cha)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NGANH_ThoiGianToiThieu)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NGANH_ThoiGianToiDa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DV_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NGANH_Ten)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NGANH_TenE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NGANH_Cap)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NGANH_ID_Cha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NGANH_ThoiGianToiThieu)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NGANH_ThoiGianToiDa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.NGANH_ID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.NGANH_ID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.NGANH_ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

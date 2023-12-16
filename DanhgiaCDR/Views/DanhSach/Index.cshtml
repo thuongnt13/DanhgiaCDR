@@ -1,0 +1,61 @@
+﻿@model List<View_Danhsach>
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Danh sách</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item">Danh sách</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Danh sách sinh viên</h5>
+                        <!-- Table with stripped rows -->
+                        <table class="table datatable" id="example">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Mã SV</th>
+                                    <th>Tên SV</th>
+                                    <th>Ngành</th>
+                                    <th>CTDT</th>
+                                    <th>Chuẩn đầu ra</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>1</td>
+                                        <td>@item.SV_ID</td>
+                                        <td>@item.SV_Ten</td>
+                                        <td>@item.NGANH_Ten</td>
+                                        <td>@item.CTDT_Ten</td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <span>Loại phiếu</span>
+                                                <div class="dropdown-content">
+                                                    <a href="PhieudanhgiaDN.html">Doanh nghiệp</a>
+                                                    <a href="PhieudanhgiaHD.html">Hội đồng</a>
+                                                    <a href="PhieudanhgiaHD.html">Link 3</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <!-- End Table with stripped rows -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main><!-- End #main -->

@@ -1,0 +1,79 @@
+﻿@model DanhgiaCDR.Models.tblCTDT
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>tblCTDT</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CTDT_Ten)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CTDT_Ten)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NGANH_ID)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NGANH_ID)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CTDT_So)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CTDT_So)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DV_ID)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DV_ID)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CTDT_SoTinChi)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CTDT_SoTinChi)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CTDT_NamBatDau)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CTDT_NamBatDau)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CTDT_ThoiGianToiDa)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CTDT_ThoiGianToiDa)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CTDT_ThoiGianToiThieu)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CTDT_ThoiGianToiThieu)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CTDT_GhiChu)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CTDT_GhiChu)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CTDT_File)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CTDT_File)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.CTDT_ID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

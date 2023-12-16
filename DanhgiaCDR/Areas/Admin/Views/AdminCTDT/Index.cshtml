@@ -1,0 +1,90 @@
+﻿@model IEnumerable<DanhgiaCDR.Models.tblCTDT>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CTDT_Ten)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NGANH_ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CTDT_So)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DV_ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CTDT_SoTinChi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CTDT_NamBatDau)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CTDT_ThoiGianToiDa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CTDT_ThoiGianToiThieu)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CTDT_GhiChu)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CTDT_File)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CTDT_Ten)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NGANH_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CTDT_So)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DV_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CTDT_SoTinChi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CTDT_NamBatDau)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CTDT_ThoiGianToiDa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CTDT_ThoiGianToiThieu)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CTDT_GhiChu)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CTDT_File)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CTDT_ID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CTDT_ID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CTDT_ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

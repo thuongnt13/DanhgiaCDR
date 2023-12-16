@@ -1,0 +1,528 @@
+﻿@using DanhgiaCDR.Models;
+@model IList<tblTieuChi>
+@{
+    ViewData["Title"] = "Danh sách các tiêu chí";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<section class="section">
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div class="card">
+                <div class="card-body" style="padding: 50px ;">
+                    <div class="row m-b-30" style="align-items: center; margin-bottom: 30px !important;">
+                        <div class="col-md-8">
+                            <div class="row" style="display: flex; align-items: center;">
+
+
+                                <div class="col-md-6 mb-3 header" style="box-shadow: none !important; display: flex; justify-content: center; align-items: center; z-index: 0 !important;">
+
+
+                                    <div class="search-bar" style="padding: 0 8px !important;">
+                                        <form class="search-form d-flex align-items-center" method="POST" action="#">
+                                            <input type="text" id="keyword" name="keyword" placeholder="Tìm kiếm" title="Enter search keyword">
+                                            <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+
+
+                                    <select class="form-select" aria-label="Default select example">
+                                        <option disabled selected>Chọn tiêu chí</option>
+                                        <option value="All">Chọn tất cả</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-4" style="text-align: right !important;">
+
+
+                            <button type="button" class="btn btn-primary rounded-pill" data-bs-toggle="modal" id="btnAdd" data-bs-target="#largeModal"><i class="bi bi-plus"></i> Thêm mới</button>
+
+                            @*THÊM MỚI SV *@
+
+                            <div class="modal fade" id="largeModal" tabindex="-1">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header" style="background: #0d6efd;">
+                                            <h5 class="modal-title"><strong style="color: #ffff;" id="modal-title"></strong></h5>
+                                            <button type="button" style="color: #ffff;" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body" style="text-align: left;">
+                                            <div class="col-lg-12">
+
+
+                                                <!-- Vertical Form -->
+                                                <form class="row g-3">
+                                                    <input hidden id="idTieuchi" type="text" value="" />
+                                                    @*<div class="col-6">
+                                                    <label for="inputEmail4" class="form-label"><strong>loại phiếu đánh giá</strong></label>
+                                                    <select class="form-select" id="selectlpdg" aria-label="Default select example">
+                                                    </select>
+                                                    </div>
+                                                    <div class="col-6">
+                                                    <label for="inputEmail4" class="form-label"><strong>cdr mon hoc</strong></label>
+                                                    <select class="form-select" id="selectcdrmh" aria-label="Default select example">
+                                                    </select>
+                                                    </div>
+                                                    <div class="col-6">
+                                                    <label for="selectMenu" class="form-label"><strong>tieu chi cha</strong></label>
+                                                    <select class="form-select" id="selecttccha" aria-label="Default select example"></select>
+                                                    </div>
+                                                    *@
+                                                    <div class="col-6">
+                                                        <label for="selectlpdg" class="form-label"><strong>loại phiếu đánh giá</strong></label>
+                                                        <input type="text" class="form-control" id="selectlpdg">
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <label for="tentc" class="form-label"><strong>Tên tiêu chí</strong></label>
+                                                        <input type="text" class="form-control" id="tentc">
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <label for="min" class="form-label"><strong>khoảng điểm min</strong></label>
+                                                        <input type="text" class="form-control" id="min">
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <label for="max" class="form-label"><strong>khoảng điểm max</strong></label>
+                                                        <input type="text" class="form-control" id="max">
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <label for="donggop" class="form-label"><strong>đóng góp cdr</strong></label>
+                                                        <input type="text" class="form-control" id="donggop">
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <label for="trongso" class="form-label"><strong>trọng số</strong></label>
+                                                        <input type="text" class="form-control" id="trongso">
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <label for="selectcdrmh" class="form-label"><strong>cdr mon hoc</strong></label>
+                                                        <input type="text" class="form-control" id="selectcdrmh">
+                                                    </div>
+                                                    
+                                                    <div class="col-6">
+                                                        <label for="cap" class="form-label"><strong>tieu chi Cấp</strong></label>
+                                                        <input type="number" class="form-control" id="cap">
+
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <label for="selecttccha" class="form-label"><strong>tieu chi cha</strong></label>
+                                                        <input type="number" class="form-control" id="selecttccha">
+
+                                                    </div>
+                                                    
+
+
+                                                    <div class="col-12">
+                                                        <label for="isActive" class="form-label"><strong>Trạng thái</strong></label>
+                                                        <div class="col-sm-10">
+                                                            <div class="form-check form-switch" style="padding-bottom: 8px !important;">
+                                                                <input class="form-check-input" type="checkbox" id="isActive">
+                                                                <label for="isActive" class="form-check-label">Công khai</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <label for="thutu" class="form-label"><strong>thứ tự</strong></label>
+                                                        <input type="number" class="form-control" id="thutu">
+
+                                                    </div>
+
+                                                    <!--
+
+                                                    -->
+
+
+                                                </form><!-- Vertical Form -->
+
+
+
+
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                            <button type="button" class="btn btn-primary" id="btnAddTieuchi">Lưu lại</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- End Large Modal-->
+
+                            
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover e-commerce-table" style="margin-bottom: 50px !important;">
+                            <thead>
+                                <tr>
+                                    <th style="padding: 1rem !important;">ID</th>
+                                    <th style="padding: 1rem !important;">Loại phiếu đánh giá</th>
+                                    <th style="padding: 1rem !important;">tên tiêu chí</th>
+                                    <th style="padding: 1rem !important;">khoảng điểm min</th>
+                                    <th style="padding: 1rem !important;">khoảng điểm max</th>
+                                    <th style="padding: 1rem !important;">đóng góp cdr</th>
+                                    <th style="padding: 1rem !important;">trọng số</th>
+                                    <th style="padding: 1rem !important;">id cdrmh</th>
+                                    <th style="padding: 1rem !important;">mức </th>
+                                    <th style="padding: 1rem !important;">cấp cha</th>
+                                    <th style="padding: 1rem !important;">trạng thái</th>
+                                        <th style="padding: 1rem !important;">Thứ tự</th>
+                                    <th style="padding: 1rem !important;">Chức năng</th>
+
+
+
+                                </tr>
+                            </thead>
+
+                            @*// Danh sách menu*@
+                                <tbody id="dsTieuchi" style="vertical-align:-webkit-baseline-middle !important;">
+
+                                @*Hàm LoadDsMenu() sẽ hiển thị ở đây*@
+
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+       </div>
+    </div>
+</section>
+
+
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            LoadDsTieuchi();
+            
+            
+        });
+        
+        
+         // XÓA 
+        $(document).on('click', "a[name='delete']", function () {
+            let tieuChi_ID = $(this).closest('tr').attr('id');
+
+            if (confirm("Bạn có thực sự muốn xóa trường này không?")) {
+                // dùng ajax để xóa lớp được chọn
+                $.ajax({
+                    url: '/Admin/AdminTieuChi/Delete',
+                    type: 'POST',
+                    data: {
+                        id: tieuChi_ID,
+
+                    },
+                    success: function (data) {
+                        if (data.code == 200) {
+                            alert(data.msg);
+                            LoadDsTieuchi();
+                        } else {
+                            alert(data.msg);
+                        }
+                    }
+                })
+            }
+        });
+        // CHỈNH SỬA
+        $(document).on('click', "a[name='edit']", function () {
+            // gán title cho modal
+            $('#modal-title').text('Chỉnh sửa');
+            let tieuChi_ID = $(this).closest('tr').attr('id');
+
+            $.ajax({
+                url: '/Admin/AdminTieuChi/Details',
+                type: 'GET',
+                data: {
+                    id: tieuChi_ID
+                },
+                success: function (data) {
+                    console.log(data);
+                    if (data.code == 200) {
+                        // Nếu lấy thông tin thành công
+                        $('#selectlpdg').val(data.tc.loaiPhieuDanhGia_ID);
+                        $('#tentc').val(data.tc.tieuChi_Ten);
+                        $('#min').val(data.tc.khoangDiemmin);
+                        $('#max').val(data.tc.khoangDiemmax);
+                        $('#donggop').val(data.tc.dongGopCDR);
+                        $('#trongso').val(data.tc.trongSo);
+                        $('#selectcdrmh').val(data.tc.cdrmH_ID);
+                        $('#cap').val(data.tc.tieuChi_Cap);
+                        $('#selecttccha').val(data.tc.tieuChi_Cha);
+                        if ((data.tc.isActive) == true) {
+                            $('#isActive').prop('checked', true);
+                        } else {
+                            $('#isActive').prop('checked', false);
+
+                        }
+                        $('#thutu').val(data.tc.thuTu);
+
+                        // không cho chỉnh sửa dữ liệu
+                       $('#selectlpdg').prop('disabled', false);
+                        $('#tentc').prop('disabled', false);
+                        $('#min').prop('disabled', false);
+                        $('#max').prop('disabled', false);
+                        $('#donggop').prop('disabled', false);
+                        $('#trongso').prop('disabled', false);
+                        $('#selectcdrmh').prop('disabled', false);
+                        $('#cap').prop('disabled', false);
+                        $('#selecttccha').prop('disabled', false);
+                         $('#isActive').prop('checked', false);
+                         $('#thutu').prop('disabled', false);
+                        
+
+                        // Ẩn nút "Thêm mới"
+                        $('#btnAddTieuchi').show();
+
+                        // Gán giá trị cho text hidden có giá trị là idFilm = filmID
+                        $('#idTieuchi').val(tieuChi_ID);
+                    } else {
+                        alert(data.msg);
+                    }
+                }
+            })
+        });
+        
+        // XEM CHI TIẾT 
+        $(document).on('click', "a[name='xem']", function () {
+            // gán title cho modal
+            $('#modal-title').text('Thông tin chi tiết');
+            let tieuChi_ID   = $(this).closest('tr').attr('id');
+
+            $.ajax({
+                url: '/Admin/AdminTieuChi/Details',
+                type: 'GET',
+                data: {
+                    id: tieuChi_ID
+                },
+                
+                success: function (data) {
+                    console.log(data);
+                    if (data    .code == 200) {
+                        // Nếu lấy thông tin thành công
+                        
+                            
+                        $('#selectlpdg').val(data.tc.loaiPhieuDanhGia_ID);
+                        $('#tentc').val(data.tc.tieuChi_Ten);
+                        $('#min').val(data.tc.khoangDiemmin);
+                        $('#max').val(data.tc.khoangDiemmax);
+                        $('#donggop').val(data.tc.dongGopCDR);
+                        $('#trongso').val(data.tc.trongSo);
+                        $('#selectcdrmh').val(data.tc.cdrmH_ID);
+                        $('#cap').val(data.tc.tieuChi_Cap);
+                        $('#selecttccha').val(data.tc.tieuChi_Cha);
+                        if ((data.tc.isActive) == true) {
+                            $('#isActive').prop('checked', true);
+                        } else {
+                            $('#isActive').prop('checked', false);
+
+                        }
+                        $('#thutu').val(data.tc.thuTu);
+
+
+                        // Không cho chỉnh sửa dữ liệu
+                        
+                        $('#selectlpdg').prop('disabled', true);
+                        $('#tentc').prop('disabled', true);
+                        $('#min').prop('disabled', true);
+                        $('#max').prop('disabled', true);
+                        $('#donggop').prop('disabled', true);
+                        $('#trongso').prop('disabled', true);
+                        $('#selectcdrmh').prop('disabled', true);
+                        $('#cap').prop('disabled', true);
+                        $('#selecttccha').prop('disabled', true);
+                         $('#isActive').prop('checked', true);
+                         $('#thutu').prop('disabled', true);
+
+                        // Ẩn nút "Thêm mới"
+                        $('#btnAddTieuchi').hide();
+
+                        // Gán giá trị cho text hidden có giá trị là idFilm = filmID
+                        $('#idTieuchi').val(tieuChi_ID);
+                    } else {
+                        alert(data.msg);
+                    }
+                }
+            });
+        });
+
+        $('#btnAddTieuchi').click(function () {
+            let loaiPhieuDanhGia_ID = $('#selectlpdg').val().trim();
+            let tieuChi_Ten = $('#tentc').val().trim();
+            let khoangDiemmin = $('#min').val().trim();
+            let khoangDiemmax = $('#max').val().trim();
+            let dongGopCDR = $('#donggop').val().trim();
+            let trongSo = $('#trongso').val().trim();
+            let cdrmH_ID = $('#selectcdrmh').val().trim();
+            let tieuChi_Cap = $('#cap').val().trim();
+            let tieuChi_Cha = $('#selecttccha').val().trim();
+            
+            let isActve = $('#isActive').prop('checked');
+            let thuTu = $('#thutu').val().trim();
+            let tieuChi_ID = $('#idTieuchi').val().trim();
+            // Kiểm tra xem giá trị có tồn tại không
+            if (!tieuChi_Ten || tieuChi_Ten.trim().length === 0 ||
+                !khoangDiemmin || khoangDiemmin.trim().length === 0 ||
+                !khoangDiemmax || khoangDiemmax.trim().length === 0 ||
+                !dongGopCDR || dongGopCDR.trim().length === 0 ||
+                !trongSo || trongSo.trim().length === 0) {
+                alert('Vui lòng nhập đầy đủ thông tin!');
+                return;
+            }
+
+            if (tieuChi_ID.length == 0) {
+                // Thêm mới 
+                $.ajax({
+                    url: '/Admin/AdminTieuChi/Create',
+                    type: 'post',
+                    data: {
+                        tieuChi_ID:"123",
+                        LoaiPhieudanhGia_ID: loaiPhieuDanhGia_ID,
+                        TieuChi_Ten: tieuChi_Ten ,
+                        KhoangDiemmin: khoangDiemmin ,
+                        KhoangDiemmax: khoangDiemmax ,
+                        DongGopCDR: dongGopCDR,
+                        TrongSo: trongSo,
+                        CDRMH_ID: cdrmH_ID ,
+                        TieuChi_Cap:  tieuChi_Cap,
+                        TieuChi_Cha: tieuChi_Cha,
+                        IsActve: isActve,
+                        ThuTu: thuTu,
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        if (data.code == 200) {
+                            alert(data.msg);
+                            LoadDsTieuchi();
+                            
+                        } else {
+                            alert(data.msg);
+                        }
+                    }
+                });
+            } else {
+                // Cập nhật sinh viên
+                $.ajax({
+                    url: '/Admin/AdminTieuChi/Edit',
+                    type: 'post',
+                    data: {
+                        id: tieuChi_ID,
+                        LoaiPhieudanhGia_ID: loaiPhieuDanhGia_ID,
+                        TieuChi_Ten: tieuChi_Ten ,
+                        KhoangDiemmin: khoangDiemmin ,
+                        KhoangDiemmax: khoangDiemmax ,
+                        DongGopCDR: dongGopCDR,
+                        TrongSo: trongSo,
+                        CDRMH_ID: cdrmH_ID ,
+                        TieuChi_Cap: tieuChi_Cap,
+                        TieuChi_Cha: tieuChi_Cha,
+                        IsActve: isActve,
+                        ThuTu: thuTu,
+                    },
+                    success: function (data) {
+                        //console.log(data);
+                        if (data.code == 200) {
+                            //thành công
+                            alert(data.msg);
+
+                            $('#largeModal').modal('hide');
+                            LoadDsTieuchi();
+
+                        } else {
+                            alert(data.msg);
+                        }
+                    }
+                });
+            }
+        });
+        
+        $('#btnAdd').click(function () {
+            // gán title cho modal
+            $('#modal-title').text('Thêm mới tiêu chí');
+
+            // Hiển thị nút "Thêm mới"
+            $('#btnAddTieuchi').show();
+
+            // Cho phép chỉnh sửa dữ liệu
+            $('#selectlpdg').prop('disabled', false);
+            $('#tentc').prop('disabled', false);
+            $('#min').prop('disabled', false);
+            $('#max').prop('disabled', false);
+            $('#donggop').prop('disabled', false);
+            $('#trongso').prop('disabled', false);
+            $('#selectcdrmh').prop('disabled', false);
+            $('#cap').prop('disabled', false);
+            $('#selecttccha').prop('disabled', false);
+             $('#isActive').prop('checked', false);
+             $('#thutu').prop('disabled', false);
+
+            // Đặt giá trị rỗng cho các trường input và select
+            $('#selectlpdg').val('');
+            $('#tentc').val('');
+            $('#min').val('');
+            $('#max').val('');
+            $('#donggop').val('');
+            $('#trongso').val('');
+            $('#selectcdrmh').val('');
+            $('#cap').val('');
+            $('#selecttccha').val('');
+             $('#isActive').val('');
+             $('#thutu').val('');
+
+
+        });
+
+
+        function LoadDsTieuchi() {
+            $.ajax({
+                url: '/Admin/AdminTieuChi/DsTieuchi',
+                type: 'GET',
+                success: function (data) {
+                    console.log(data);
+
+                    if (data.code == 200) {
+                        $('#dsTieuchi').empty();//làm trống
+                        $.each(data.dsTieuchi, function (key, value) {
+                            let tr = '<tr id="' + value.tieuChi_ID + '">';
+                            tr += '<td style="padding: 1rem !important; vertical-align:-webkit-baseline-middle !important;">' + value.tieuChi_ID + '</td>';
+                            tr += '<td style="padding: 1rem !important; vertical-align:-webkit-baseline-middle !important;">' + value.loaiPhieuDanhGia_ID + '</td>';
+                            tr += '<td style="padding: 1rem !important; vertical-align:-webkit-baseline-middle !important;">' + value.tieuChi_Ten + '</td>';
+                            tr += '<td style="padding: 1rem !important; vertical-align:-webkit-baseline-middle !important;">' + value.khoangDiemmin + '</td>';
+                            tr += '<td style="padding: 1rem !important; vertical-align:-webkit-baseline-middle !important;">' + value.khoangDiemmax + '</td>';
+                            tr += '<td style="padding: 1rem !important; vertical-align:-webkit-baseline-middle !important;">' + value.dongGopCDR + '</td>';
+                            tr += '<td style="padding: 1rem !important; vertical-align:-webkit-baseline-middle !important;">' + value.trongSo + '</td>';
+                            tr += '<td style="padding: 1rem !important; vertical-align:-webkit-baseline-middle !important;">' + value.cdrmH_ID + '</td>';
+                            tr += '<td style="padding: 1rem !important; vertical-align:-webkit-baseline-middle !important;">' + value.tieuChi_Cap + '</td>';
+                            tr += '<td style="padding: 1rem !important; vertical-align:-webkit-baseline-middle !important;">' + value.tieuChi_Cha + '</td>';
+                            tr += '<td style="padding: 1rem !important; vertical-align:-webkit-baseline-middle !important;">' + value.isActve + '</td>';
+                            tr += '<td style="padding: 1rem !important; vertical-align:-webkit-baseline-middle !important;">' + value.thuTu + '</td>';
+                            tr += '<td style="min-width: 150px !important;">';
+                            tr += '<a class="btn btn-primary btn-sm" name="xem" data-bs-toggle="modal" data-bs-target="#largeModal" title ="xem"><i class="ri-eye-line" > </i></a >';
+                            tr += '<a class="btn btn-success btn-sm" name="edit" data-bs-toggle="modal" data-bs-target="#largeModal" title ="sửa" style="margin: 0 5px !important;"><i class="ri-edit-2-line"></i></a >';
+                            tr += '<a class="btn btn-danger btn-sm" name="delete" title = "xóa"><i class="bi bi-trash"></i></a >';
+
+                            tr += '</td>';
+                            tr += '</tr>';
+
+                            $('#dsTieuchi').append(tr);
+                        });
+
+                    }
+                }
+            });
+        }
+
+
+    </script>
+}
+
