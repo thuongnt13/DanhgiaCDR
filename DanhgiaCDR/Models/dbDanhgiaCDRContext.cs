@@ -20,10 +20,13 @@ namespace DanhgiaCDR.Models
         {
 
             modelBuilder.Entity<tblMH>()
-        .HasOne(mh => mh.CTDT)
-        .WithMany(ctdt => ctdt.tblMHs)
-        .HasForeignKey(mh => new { mh.CTDT_ID, mh.NGANH_ID }) // Xác định khóa ngoại cụ thể
-        .HasPrincipalKey(ctdt => new { ctdt.CTDT_ID, ctdt.NGANH_ID }); // Xác định khóa chính của tblCTDT
+            .HasOne(mh => mh.CTDT)
+            .WithMany(ctdt => ctdt.tblMHs)
+            .HasForeignKey(mh => new { mh.CTDT_ID, mh.NGANH_ID }) // Xác định khóa ngoại cụ thể
+            .HasPrincipalKey(ctdt => new { ctdt.CTDT_ID, ctdt.NGANH_ID }); // Xác định khóa chính của tblCTDT
+
+            modelBuilder.Entity<tblSV>()
+           .HasKey(p => new { p.SV_ID, p.MH_ID });
         }
 
         public DbSet<tblCDRCTDT> tblCDRCTDTs { get; set; } = null!;
@@ -50,6 +53,6 @@ namespace DanhgiaCDR.Models
         public DbSet<View_Danhsach> view_Danhsach { get; set; } = null!;
         //public DbSet<User> Users { get; set; } = null!;
         public DbSet<AdminMenu> AdminMenus { get; set; } = null!;
-       
+
     }
 }
