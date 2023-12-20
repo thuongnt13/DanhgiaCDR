@@ -90,15 +90,16 @@
                                 @foreach (var item in Model)
                                 {
                                     <tr>
-                                        <td>@item.MH_ID</td>
+                                        <td id="idMh">@item.MH_ID</td>
                                         <td>CDIO</td>
-
-                                        <!--<td>Học Phần A</td>-->
-                                        <!-- <td>@item.MH_Ten </td>-->
                                         <td>@item.MH_Ten</td>
                                         <td>@item.MH_SoTinChi</td>
-                                        <td><a href="@Url.Action("Index", "Danhsach")">Danh sách sinh viên</a></td>
-                                        @*<td><a href="tables-general.html">Đạt</a></td>*@
+                                        <td>
+                                            <a asp-controller="Danhsach" asp-route-MH_ID="@item.MH_ID">
+                                                Danh sách sinh
+                                                viên
+                                            </a>
+                                        </td>
                                     </tr>
                                 }
                             </tbody>
