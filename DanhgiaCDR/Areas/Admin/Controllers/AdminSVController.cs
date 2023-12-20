@@ -106,7 +106,7 @@ namespace DanhgiaCDR.Areas.Admin.Controllers
                 _context.Update(sv);
                 _context.SaveChanges();
 
-                return Json(new { code = 200, msg = "Cập nhật thành công ok" });
+                return Json(new { code = 200, msg = "Cập nhật thành công" });
 
             }
             catch (Exception ex)
