@@ -51,6 +51,7 @@ namespace DanhgiaCDR.Models
         public DbSet<Menu> Menus { get; set; } = null!;
         //public DbSet<SVViewModel> SVViewModels { get; set;} = null!;
         public DbSet<View_Danhsach> view_Danhsach { get; set; } = null!;
+        public DbSet<View_Loaiphieu> view_Loaiphieu { get; set; } = null!;
         //public DbSet<User> Users { get; set; } = null!;
         public DbSet<AdminMenu> AdminMenus { get; set; } = null!;
 
