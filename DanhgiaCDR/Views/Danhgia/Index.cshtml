@@ -1,4 +1,5 @@
 ﻿@using DanhgiaCDR.Models;
+@using DanhgiaCDR.Utilities;
 @model IList<tblMH>
 
 
@@ -7,7 +8,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Tìm kiếm học phầnnnnnnn</h5>
+                    <h5 class="card-title">Tìm kiếm học phần</h5>
 
                     <!-- General Form Elements -->
                     <form id="searchForm">
@@ -89,6 +90,7 @@
                             <tbody>
                                 @foreach (var item in Model)
                                 {
+                                    //string url = Functions.TitleSlugGeneration("Home", item.MH_Ten, item.MH_ID);
                                     <tr>
                                         <td id="idMh">@item.MH_ID</td>
                                         <td>CDIO</td>
@@ -96,8 +98,7 @@
                                         <td>@item.MH_SoTinChi</td>
                                         <td>
                                             <a asp-controller="Danhsach" asp-route-MH_ID="@item.MH_ID">
-                                                Danh sách sinh
-                                                viên
+                                                Danh sách sinh viên
                                             </a>
                                         </td>
                                     </tr>

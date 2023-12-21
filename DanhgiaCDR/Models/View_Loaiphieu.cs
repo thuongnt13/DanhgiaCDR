@@ -12,11 +12,16 @@ namespace DanhgiaCDR.Models
         public string? MH_Ten { get; set; }
         public int SV_ID { get; set; }
         public string? SV_Ten { get; set; }
+        [Key]
 
         public int TieuChi_ID { get; set; }
         public string? TieuChi_Ten { get; set; }
-        
-        
-        
+        public double? KhoangDiemmin { get; set; }
+        public double? KhoangDiemmax { get; set; }
+        public int? DongGopCDR { get; set; }
+        public double? TrongSo { get; set; }
+
+
+
     }
 }

@@ -33,39 +33,56 @@ namespace DanhgiaCDR.Controllers
         }
 
         //[HttpGet("/list-{slug}-{id:int}.html", Name = "List")]
-       /* public IActionResult List(int? id)
+        /* public IActionResult List(int? id)
+         {
+             if (id == null)
+             {
+                 return NotFound();
+             }
+
+             var list = from c in _context.tblCTDTs
+                        where c.CTDT_ID == id
+                        orderby c.CTDT_ID
+                        select new ViewCTDT
+                        {
+                            CTDT_Ten = c.CTDT_Ten,
+                            tblMHs = (from p in _context.tblMHs
+                                      where p.CTDT_ID == c.CTDT_ID
+                                      orderby p.MH_ID
+                                      select new ViewHP
+                                      {
+                                          MH_ID = p.MH_ID,
+                                          MH_Ten = p.MH_Ten,
+                                          MH_SoTinChi = p.MH_SoTinChi,
+                                          NGANH_ID = p.NGANH_ID
+                                      }).ToList()
+                        };
+
+             var listOfCTDTWithHPs = list.Where(c => c.tblMHs.Count > 0);
+
+             if (listOfCTDTWithHPs == null)
+             {
+                 return NotFound();
+             }
+
+             return View("List", listOfCTDTWithHPs.ToList());
+         }
+        [Route("/mh-{slug}-{MH_ID:int}.html", Name = "Details")]
+        public IActionResult Details(int? MH_ID)
         {
-            if (id == null)
+            if (string.IsNullOrEmpty(MH_ID.ToString()))
             {
-                return NotFound();
+                var fullList = _context.tblSVs.OrderBy(d => d.SV_ID).ToList();
+                return View(fullList);
             }
-
-            var list = from c in _context.tblCTDTs
-                       where c.CTDT_ID == id
-                       orderby c.CTDT_ID
-                       select new ViewCTDT
-                       {
-                           CTDT_Ten = c.CTDT_Ten,
-                           tblMHs = (from p in _context.tblMHs
-                                     where p.CTDT_ID == c.CTDT_ID
-                                     orderby p.MH_ID
-                                     select new ViewHP
-                                     {
-                                         MH_ID = p.MH_ID,
-                                         MH_Ten = p.MH_Ten,
-                                         MH_SoTinChi = p.MH_SoTinChi,
-                                         NGANH_ID = p.NGANH_ID
-                                     }).ToList()
-                       };
-
-            var listOfCTDTWithHPs = list.Where(c => c.tblMHs.Count > 0);
-
-            if (listOfCTDTWithHPs == null)
+            else
             {
-                return NotFound();
-            }
+                Console.WriteLine(MH_ID);
+                var query = _context.view_Danhsach
+                            .Where(item => item.MH_ID == MH_ID).ToList();
+                return View(query);
 
-            return View("List", listOfCTDTWithHPs.ToList());
+            }
         }*/
 
     }
