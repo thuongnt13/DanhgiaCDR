@@ -45,13 +45,14 @@ namespace DanhgiaCDR.Areas.Admin.Controllers
         // HÀM THÊM MỚI 
 
         [HttpPost]
-        public JsonResult Create(string SV_Ten, int NGANH_ID, int CTDT_ID, int LHP_ID, int MH_ID)
+        public JsonResult Create(int SV_ID, string SV_Ten, int NGANH_ID, int CTDT_ID, int LHP_ID, int MH_ID)
         {
             try
             {
 
 
                 var sv = new tblSV();
+                sv.SV_ID = SV_ID;
                 sv.SV_Ten = SV_Ten;
                 sv.NGANH_ID = NGANH_ID;
                 sv.CTDT_ID = CTDT_ID;

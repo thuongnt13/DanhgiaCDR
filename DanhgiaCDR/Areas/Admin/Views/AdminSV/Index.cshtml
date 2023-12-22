@@ -61,6 +61,10 @@
                                                 <form class="row g-3">
                                                     <input hidden id="idSinhvien" type="text" value="" />
                                                     <div class="col-6">
+                                                        <label for="inputNanme4" class="form-label"><strong>Mã sinh viên</strong></label>
+                                                        <input type="text" class="form-control" id="masv">
+                                                    </div>
+                                                    <div class="col-6">
                                                         <label for="inputNanme4" class="form-label"><strong>Tên sinh viên</strong></label>
                                                         <input type="text" class="form-control" id="tensv">
                                                     </div>
@@ -201,7 +205,7 @@
                     console.log(data);
                     if (data.code == 200) {
                         // Nếu lấy thông tin thành công
-
+                        $('#masv').val(data.sv.sV_ID);
                         $('#tensv').val(data.sv.sV_Ten);
                         $('#selectnganh').val(data.sv.nganH_ID);
                         $('#selectctdt').val(data.sv.ctdT_ID);
@@ -209,6 +213,7 @@
                         $('#selectmonhoc').val(data.sv.mH_ID);
 
                         //  cho chỉnh sửa dữ liệu
+                        $('#masv').prop('disabled', false);
                         $('#tensv').prop('disabled', false);
                         $('#selectnganh').prop('disabled', false);
                         $('#selectctdt').prop('disabled', false);
@@ -243,7 +248,7 @@
                     console.log(data);
                     if (data.code == 200) {
                         // Nếu lấy thông tin thành công
-
+                        $('#masv').val(data.sv.sV_ID);
                         $('#tensv').val(data.sv.sV_Ten);
                         $('#selectnganh').val(data.sv.nganH_ID);
                         $('#selectctdt').val(data.sv.ctdT_ID);
@@ -251,6 +256,7 @@
                         $('#selectmonhoc').val(data.sv.mH_ID);
 
                         // Không cho chỉnh sửa dữ liệu
+                        $('#masv').prop('disabled', true);
                         $('#tensv').prop('disabled', true);
                         $('#selectnganh').prop('disabled', true);
                         $('#selectctdt').prop('disabled', true);
@@ -272,6 +278,7 @@
 
 
         $('#btnAddSinhvien').click(function () {
+            //let sV_ID = $('#masv').val().trim();
             let sV_Ten = $('#tensv').val().trim();
             let nganH_ID = $('#selectnganh').val().trim();
             let ctdT_ID = $('#selectctdt').val().trim();
@@ -350,6 +357,7 @@
             $('#btnAddSinhvien').show();
 
             // Cho phép chỉnh sửa dữ liệu
+            $('#masv').prop('disabled', false);
             $('#tensv').prop('disabled', false);
             $('#selectnganh').prop('disabled', false);
             $('#selectctdt').prop('disabled', false);
@@ -357,6 +365,7 @@
             $('#selectmonhoc').prop('disabled', false);
 
             // Đặt giá trị rỗng cho các trường input và select
+            $('#masv').val('');
             $('#tensv').val('');
             $('#selectnganh').val('');
             $('#selectctdt').val('');
