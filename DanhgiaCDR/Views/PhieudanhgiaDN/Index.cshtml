@@ -1,11 +1,12 @@
-﻿@model List<View_Loaiphieu>
+﻿@using DanhgiaCDR.Models;
+@model List<View_Loaiphieu>
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
-    <link rel="stylesheet" href="style.css">
+    
     <style>
         .student-list {
             max-height: 700px;
@@ -138,161 +139,47 @@
                         </div>
                     </div>
                     <div class="accordion" id="accordionPanelsStayOpenExample">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header d-flex justify-content-between" id="panelsStayOpen-headingOne">
-                                <div class="text-div-open">
-                                    <div class="text-open">
-                                        <span>
-                                            Hợp tác làm việc hiệu quả trong các hoạt động tại đơn vị thực tập [2.5]
-                                            (20%)
-                                        </span>
+
+                            @foreach (var tieuChi in Model.Where(tc => tc.TieuChi_Cha == 0).OrderBy(tc => tc.ThuTu))
+                            {
+                                var subTieuChis = Model.Where(stc => stc.TieuChi_Cha == tieuChi.TieuChi_ID).OrderBy(stc => stc.ThuTu).ToList();
+
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header d-flex justify-content-between" id="panelsStayOpen-headingThree">
+                                        <div class="text-div-open">
+                                            <div class="text-open">
+                                                <span>@tieuChi.TieuChi_Ten</span>
+                                            </div>
+                                            <div><input type="text" class="prevent-collapse"></div>
+                                        </div>
+                                        <div class="accordion-icon">
+                                            <button class="btn btn-link accordion-button" type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="true"
+                                                    aria-controls="panelsStayOpen-collapseThree">
+                                                <i class="fas fa-chevron-down"></i>
+                                            </button>
+                                        </div>
+                                    </h2>
+                                    <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse"
+                                         aria-labelledby="panelsStayOpen-headingThree">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <tbody>
+                                                    @foreach (var subTieuChi in subTieuChis)
+                                                    {
+                                                        <tr>
+                                                            <td>@subTieuChi.TieuChi_Ten</td>
+                                                            <td>@subTieuChi.KhoangDiemmin-@subTieuChi.KhoangDiemmax</td>
+                                                            <td></td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
-                                    <div><input type="text" class="prevent-collapse"></div>
                                 </div>
-                                <div class="accordion-icon">
-                                    <button class="btn btn-link accordion-button" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
-                                            aria-controls="panelsStayOpen-collapseOne">
-                                        <i class="fas fa-chevron-down"></i>
-                                    </button>
-                                </div>
-                            </h2>
-                            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
-                                 aria-labelledby="panelsStayOpen-headingOne">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    Tham gia hoạt động tại đơn vị, đóng góp nhiều ý kiến
-                                                </td>
-                                                <td>1,6-2,0</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    Tham gia hoạt động tại đơn vị, có đóng góp vài ý
-                                                    kiến
-                                                </td>
-                                                <td>1,1-1,5</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    Tham gia hoạt động tại đơn vị, không đóng góp ý kiến
-                                                </td>
-                                                <td>0,6-1,0</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    Tham gia ít hoạt động tại đơn vị, không đóng góp ý
-                                                    kiến
-                                                </td>
-                                                <td class="col-2">0,0-0,5</td>
-                                                <td class="col-3"></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header d-flex justify-content-between" id="panelsStayOpen-headingTwo">
-                                <div class="text-div-open">
-                                    <div class="text-open">
-                                        <span>Trình bày thuyết phục các vấn đề chuyên môn tại đơn vị thực tập</span>
-                                    </div>
-                                    <div><input type="text" class="prevent-collapse"></div>
-                                </div>
-                                <div class="accordion-icon">
-                                    <button class="btn btn-link accordion-button" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true"
-                                            aria-controls="panelsStayOpen-collapseTwo">
-                                        <i class="fas fa-chevron-down"></i>
-                                    </button>
-                                </div>
-                            </h2>
-                            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse"
-                                 aria-labelledby="panelsStayOpen-headingTwo">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <tbody>
-                                            <tr>
-                                                <td>Giải thích rõ ràng các vấn đề chuyên môn</td>
-                                                <td>1,6-2,0</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Giải thích phù hợp các vấn đề chuyên môn</td>
-                                                <td>1,1-1,5</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Giải thích chưa rõ các vấn đề chuyên môn</td>
-                                                <td>0,6-1,0</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Giải thích sai lệch các vấn đề chuyên môn</td>
-                                                <td class="col-2">0,0-0,5</td>
-                                                <td class="col-3"></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header d-flex justify-content-between" id="panelsStayOpen-headingThree">
-                                <div class="text-div-open">
-                                    <div class="text-open">
-                                        <span>
-                                            Thể hiện trách nhiệm, tính kiên trì và quyết tâm, sẵn sàng chấp nhận thử
-                                            thách và
-                                            rủi ro khi tham gia dự á tại đơn vị thực tập [2,5]
-                                        </span>
-                                    </div>
-                                    <div><input type="text" class="prevent-collapse"></div>
-                                </div>
-                                <div class="accordion-icon">
-                                    <button class="btn btn-link accordion-button" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="true"
-                                            aria-controls="panelsStayOpen-collapseThree">
-                                        <i class="fas fa-chevron-down"></i>
-                                    </button>
-                                </div>
-                            </h2>
-                            <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse"
-                                 aria-labelledby="panelsStayOpen-headingThree">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <tbody>
-                                            <tr>
-                                                <td>Hoàn thành trên 80% nhiệm vụ được giao</td>
-                                                <td>1,6-2,0</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Hoàn thành 60% - 79% nhiệm vụ được giao</td>
-                                                <td>1,1-1,5</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Hoàn thành 40% - 59% nhiệm vụ được giao</td>
-                                                <td>0,6-1,0</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Hoàn thành dưới 40% nhiệm vụ được giao</td>
-                                                <td class="col-2">0,0-0,5</td>
-                                                <td class="col-3"></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+                            }
+                       
                     </div>
                 </form>
                 <div class="d-flex justify-content-between mt-4">
@@ -359,7 +246,7 @@
             }
         }
     </script>
-    <script src="script.js"></script>
+    
     </main>
 </body>
 

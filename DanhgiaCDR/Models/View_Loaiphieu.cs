@@ -20,8 +20,10 @@ namespace DanhgiaCDR.Models
         public double? KhoangDiemmax { get; set; }
         public int? DongGopCDR { get; set; }
         public double? TrongSo { get; set; }
-
-
-
+        public int? TieuChi_Cap { get; set; }
+        public int? TieuChi_Cha { get; set; }
+        public int? ThuTu { get; set; }
+        //public bool? IsActve { get; set; }
+        public bool IsActive { get; internal set; }
     }
 }

@@ -15,7 +15,7 @@ namespace DanhgiaCDR.Controllers
 
         public ActionResult Index(int TieuChi_ID)
         {
-            if (string.IsNullOrEmpty(TieuChi_ID.ToString()))
+            /* if (string.IsNullOrEmpty(TieuChi_ID.ToString()))
             {
                 var fullList = _context.view_Loaiphieu.OrderBy(d => d.SV_ID).ToList();
                 return View(fullList);
@@ -29,8 +29,15 @@ namespace DanhgiaCDR.Controllers
             }
 
 
+        }*/
+            var listofTieuchi = (from t in _context.view_Loaiphieu
+                                 where (t.IsActive == true)
+                                 select t).ToList();
+
+
+            return View(listofTieuchi);
+
+
         }
-
-
     }
 }
