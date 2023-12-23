@@ -24,7 +24,6 @@ namespace DanhgiaCDR.Controllers
             }
             else
             {
-                Console.WriteLine(MH_ID);
                 var query = _context.view_Danhsach
                             .Where(item => item.MH_ID == MH_ID).ToList();
                 return View(query);

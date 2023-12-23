@@ -13,27 +13,12 @@ namespace DanhgiaCDR.Controllers
             _context = context;
         }
 
-        public ActionResult Index(int TieuChi_ID)
+        public ActionResult Index(int MH_ID, int SV_ID)
         {
-            /* if (string.IsNullOrEmpty(TieuChi_ID.ToString()))
-            {
-                var fullList = _context.view_Loaiphieu.OrderBy(d => d.SV_ID).ToList();
-                return View(fullList);
-            }
-            else
-            {
-                var query = _context.view_Loaiphieu
-                            .Where(item => item.TieuChi_ID == TieuChi_ID).ToList();
-                return View(query);
-
-            }
-
-
-        }*/
+            var model = new View_Loaiphieu();
             var listofTieuchi = (from t in _context.view_Loaiphieu
-                                 where (t.IsActive == true)
+                                 where (t.IsActive && t.MH_ID == MH_ID && t.SV_ID == SV_ID)
                                  select t).ToList();
-
 
             return View(listofTieuchi);
 

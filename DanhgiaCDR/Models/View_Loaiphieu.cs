@@ -23,7 +23,9 @@ namespace DanhgiaCDR.Models
         public int? TieuChi_Cap { get; set; }
         public int? TieuChi_Cha { get; set; }
         public int? ThuTu { get; set; }
-        //public bool? IsActve { get; set; }
         public bool IsActive { get; internal set; }
+        public DateTime? Ngaysinh { get; set; }
+        public string? DonViThucTap { get; set; }
+        public string? GV_Ten { get; set; }
     }
 }
